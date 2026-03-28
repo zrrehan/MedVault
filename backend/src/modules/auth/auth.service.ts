@@ -2,6 +2,7 @@ import { prisma } from "../../lib/prisma"
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "../../config";
+import { User } from "../../../generated/prisma/client";
 
 
 const userSignIn = async (payload: any) => {
@@ -18,10 +19,31 @@ const userSignIn = async (payload: any) => {
     })
 
     const {password, ...returnedResult} = result;
-    const token = jwt.sign(returnedResult, config.jwt_private_key as string);
+    const token = jwt.sign(returnedResult, config.jwt_private_key as string, {
+        expiresIn: "7d"
+    });
+    return {...returnedResult, token};
+}
+
+
+const userLogin = async (payload: Pick<User, "email" | "password">) => {
+    const userData = await prisma.user.findUnique({
+        where: {
+            email: payload.email
+        }
+    })
+
+    const decoded = await bcrypt.compare(payload.password, userData?.password || "");
+    if(!userData || !decoded) throw new Error("Email or Password did not match");
+
+    const {password, ...returnedResult} = userData;
+    const token = jwt.sign(returnedResult, config.jwt_private_key as string, {
+        expiresIn: "7d"
+    });
     return {...returnedResult, token};
 }
 
 export const authServices = {
-    userSignIn
+    userSignIn, 
+    userLogin
 }
