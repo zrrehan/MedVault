@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+    id        String   @id @default(uuid())
+    email     String   @unique
+    name      String
+    password  String
+    role      UserRole @default(CUSTOMER)  
+    profilePicture String @default("https://i.ibb.co.com/hxDhZ9Pz/img.jpg")  
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+    CUSTOMER
+    SELLER 
+    ADMIN
+}
+
+
+model Medicine {
+    id String @id @default(uuid())
+    name String 
+    price Int
+    stockQuantity Int 
+    seller_id String
+    category String[]
+    is_active Boolean
+    manufacturer String 
+    image String 
+    description String 
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
