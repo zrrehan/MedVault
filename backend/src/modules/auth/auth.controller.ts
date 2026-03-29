@@ -15,7 +15,8 @@ const userSignIn = async (req: Request, res: Response) => {
 const userLogin = async(req: Request, res: Response) => {
     try {
         const result = await authServices.userLogin(req.body);
-        res.send(result);
+        const message = "User login successful!!!"
+        returnHanding(200, true, message, res, result)
     } catch(error: any) {
         returnHanding(500, false, error.message, res)
     }
