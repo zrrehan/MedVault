@@ -8,7 +8,8 @@ const userSignIn = async (req: Request, res: Response) => {
         const message = "User is created successfully!!"; 
         returnHanding(201, true, message, res, result)
     } catch(error: any) {
-        returnHanding(500, false, error.message, res)
+        const message = "Use another email";
+        returnHanding(500, false, message, res, error);
     }
 }
 
@@ -18,6 +19,7 @@ const userLogin = async(req: Request, res: Response) => {
         const message = "User login successful!!!"
         returnHanding(200, true, message, res, result)
     } catch(error: any) {
+        const message = "Email or Password Incorrect!";
         returnHanding(500, false, error.message, res)
     }
 }

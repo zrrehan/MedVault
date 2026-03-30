@@ -1,9 +1,9 @@
 import { Response } from "express";
 
-export function returnHanding(status: number, succes: boolean, message: string, res: Response, data: any = null) {
+export function returnHanding(status: number, success: boolean, message: string, res: Response, data: any = null) {
     res.status(status).send({
-        success: succes,
+        success: success,
         message: message,
-        data: data,
+        data: success ? data: null,
     })
 }

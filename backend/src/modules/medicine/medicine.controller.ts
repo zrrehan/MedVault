@@ -8,7 +8,7 @@ const medicineCreate = async(req: Request, res: Response) => {
         const message = "Medicine created Successful";
         returnHanding(201, true, message, res, result);
     } catch(error: any) {
-        res.send(error);
+        returnHanding(500, false, error.message, res, error);
     }
 }
 
@@ -19,7 +19,7 @@ const allMedicineGet = async(req: Request, res: Response) => {
         const message = "Searched Medicine got successfully";
         returnHanding(200, true, message, res, result);
     } catch(error: any) {
-        res.send(error);
+        returnHanding(500, false, error.message, res, error);
     }
 }
 
