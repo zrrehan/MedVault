@@ -23,8 +23,21 @@ const allMedicineGet = async(req: Request, res: Response) => {
     }
 }
 
+const editMedicine = async(req: Request, res: Response) => {
+    try {
+        const medicineId = req.body.medicineId; 
+        const newData = req.body.newData;
+        const result = await medicineServices.editMedicine(medicineId, newData);
+        const message = "Medicine Edited Successfully";
+        returnHanding(200, true, message, res, result)
+    } catch(error: any) {{
+        returnHanding(500, false, error.message, res, error);
+    }} 
+}
+
 
 export const medicineControllers = {
     medicineCreate, 
-    allMedicineGet
+    allMedicineGet, 
+    editMedicine
 }

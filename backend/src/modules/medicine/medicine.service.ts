@@ -19,7 +19,15 @@ const allMedicineGet = async(search: string) => {
     });
 }
 
+const editMedicine = async(medicineId: string, editedData: any) => {
+    return await prisma.medicine.update({
+        where: {id: medicineId}, 
+        data: editedData
+    })
+}
+
 export const medicineServices = {
     medicineCreate, 
-    allMedicineGet
+    allMedicineGet, 
+    editMedicine
 }

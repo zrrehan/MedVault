@@ -7,5 +7,6 @@ const router = Router();
 
 router.post("/create", authMiddleware(UserType.seller), medicineControllers.medicineCreate);
 router.get("/all-medicine", medicineControllers.allMedicineGet);
+router.put("/edit-medicine", authMiddleware(UserType.seller), medicineControllers.editMedicine)
 
 export const postRouter = router;

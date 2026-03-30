@@ -98,3 +98,50 @@ Bearer Token required
   }
 }
 ```
+
+# Edit Medicine 💊✅
+
+**Endpoint:**  
+`PUT http://localhost:8080/posts/edit-medicine`
+
+**Authorization:**  
+Bearer Token required  
+`Authorization: Bearer <your_token>`
+
+---
+
+### Request Body
+
+```json
+{
+  "medicineId": "1ce8c7de-74ec-4726-86e7-d81f994b8515",
+  "newData": {
+    "name": "Axivition 250mg",
+    "price": 1000,
+    "stockQuantity": 200
+    // You can include any other fields from the medicine table, e.g., category, is_active, manufacturer, image, description
+  }
+}
+```
+
+### Response 
+```json
+{
+  "success": true,
+  "message": "Medicine Edited Successfully",
+  "data": {
+    "id": "1ce8c7de-74ec-4726-86e7-d81f994b8515",
+    "name": "Axivition 250mg",
+    "price": 1000,
+    "stockQuantity": 200,
+    "seller_id": "dcee7d3f-8238-486b-8fc5-59e8b50d9549",
+    "category": ["Antibiotic"],
+    "is_active": true,
+    "manufacturer": "GlobalPharma Ltd.",
+    "image": "https://example.com/images/azithromycin.jpg",
+    "description": "Azithromycin 250mg tablets for bacterial infections.",
+    "createdAt": "2026-03-30T20:04:30.029Z",
+    "updatedAt": "2026-03-30T20:26:07.073Z"
+  }
+}
+```
