@@ -11,6 +11,7 @@ CREATE TABLE "User" (
     "profilePicture" TEXT NOT NULL DEFAULT 'https://i.ibb.co.com/hxDhZ9Pz/img.jpg',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "banned" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -35,3 +36,6 @@ CREATE TABLE "Medicine" (
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- AddForeignKey
+ALTER TABLE "Medicine" ADD CONSTRAINT "Medicine_seller_id_fkey" FOREIGN KEY ("seller_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

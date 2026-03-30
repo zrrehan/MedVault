@@ -16,6 +16,9 @@ model User {
     profilePicture String @default("https://i.ibb.co.com/hxDhZ9Pz/img.jpg")  
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    Medicines Medicine[]
+    banned Boolean @default(false)
 }
 
 enum UserRole {
@@ -31,6 +34,7 @@ model Medicine {
     price Int
     stockQuantity Int 
     seller_id String
+    seller User @relation(fields: [seller_id], references: [id]) 
     category String[]
     is_active Boolean
     manufacturer String 
