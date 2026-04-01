@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useActionState, useEffect } from "react";
 import { loginServer } from "./login-server";
+import { toast } from "sonner";
 
 export function LoginForm({
   className,
@@ -25,7 +26,9 @@ export function LoginForm({
   const [state, action, pending] = useActionState(loginServer, null);
   useEffect(() => {
     if(!state) return;
-    alert(state.message);
+    // alert();
+    console.log(state);
+    state.success ? toast.success(state.message) : toast.error(state.message);
   }, [state]);
   
   return (
