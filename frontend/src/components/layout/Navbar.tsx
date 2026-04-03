@@ -10,11 +10,11 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Medicines", href: "/medicines" },
-    { name: "Route3", href: "/route3" },
+    { name: "Route3", href: "/dashboard" },
   ];
 
   return (
-    <div className="w-full bg-white shadow-md fixed top-0 left-0 z-50">
+    <div suppressHydrationWarning className="w-full bg-white shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           

@@ -26,7 +26,6 @@ export function LoginForm({
   const [state, action, pending] = useActionState(loginServer, null);
   useEffect(() => {
     if(!state) return;
-    // alert();
     console.log(state);
     state.success ? toast.success(state.message) : toast.error(state.message);
   }, [state]);
