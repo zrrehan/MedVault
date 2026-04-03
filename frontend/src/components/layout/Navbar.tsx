@@ -10,7 +10,7 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Medicines", href: "/medicines" },
-    { name: "Route3", href: "/dashboard" },
+    { name: "Dashboard", href: "/dashboard" },
   ];
 
   return (
@@ -20,7 +20,7 @@ const Navbar = () => {
           
           {/* Left side - Logo and links */}
           <div className="flex items-center space-x-8">
-            <div className="text-xl font-bold text-black">
+            <div className="text-2xl italic font-bold text-black">
               <Link href="/">MediVault</Link>
             </div>
 

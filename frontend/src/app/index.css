@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sunuwar&display=swap');
 * {
-  font-family: "Playwrite NZ Basic", cursive;
-  font-optical-sizing: auto;
+  font-family: "Noto Sans Sunuwar", sans-serif;
+  font-style: normal;
 }
 
 @import "tailwindcss";
