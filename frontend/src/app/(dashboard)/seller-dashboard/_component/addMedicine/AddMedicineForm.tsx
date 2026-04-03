@@ -6,11 +6,15 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useActionState, useEffect } from "react";
 import addMedicineServer from "../../_action/addMedicine/addMedicineServer";
+import SubmitButton from "@/components/ui/SubmitButton";
+import { toast } from "sonner";
 
 export default function AddMedicineForm() {
     const [state, formAction, pending] = useActionState(addMedicineServer, null);
     useEffect(() => {
-        console.log(state, pending);
+        if(!state) return; 
+        console.log(state.success);
+        state.success ? toast.success("Medicine Added!"): toast.error(state.message);
     }, [state, pending])
     return (
         <form action={formAction} className="space-y-6 bg-white p-6 rounded-lg shadow-2xl max-w-lg mx-auto">
@@ -49,8 +53,7 @@ export default function AddMedicineForm() {
                 <Label htmlFor="description" className="mb-1">Description</Label>
                 <Textarea required id="description" className="h-37.5" name = "description" placeholder="Enter a brief description of the medicine" rows={4} />
             </div>
-
-            <Button type="submit" className="w-full">Add Medicine</Button>
+            <SubmitButton className="w-full" pending={pending}>Add Medicine</SubmitButton>
         </form>
     );
 }

@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { cookies } from 'next/headers';
 import { envVar } from './utils/envVar';
 
-const sellerRoutes = ["/medicines", "/seller-dashboard"];
+const sellerRoutes = ["/medicines", "/seller-dashboard", "/seller-dashboard/edit-medicine", "/seller-dashboard/add-medicine"];
 const customerRoutes = ["/dashboard"];
 const adminRoutes = ["/admin-dashboard"]
 
@@ -12,7 +12,6 @@ export async function proxy(request: NextRequest) {
     const {pathname} = request.nextUrl;
     const cookieStore = await cookies();
     const token = cookieStore.get("token");
-    console.log("proxy.ts",pathname )
 
     const condition = sellerRoutes.includes(pathname) || customerRoutes.includes(pathname) || adminRoutes.includes(pathname)
     if(condition) {
@@ -24,15 +23,12 @@ export async function proxy(request: NextRequest) {
         try {
             decoded = jwt.verify(token?.value as string, envVar.jwt_secret as string) as JwtPayload;
         } catch(error) {
-            console.log(error);
-            // return;
             const res = NextResponse.redirect(new URL('/login', request.url));
             res.cookies.delete("token");
             return res;
         }
         
         // dashboard redirect 
-        console.log(decoded)
         if(pathname == "/dashboard") {
             console.log(decoded?.role === "SELLER")
             if (decoded?.role === "ADMIN") return NextResponse.redirect(new URL('/admin-dashboard', request.url))
@@ -43,7 +39,6 @@ export async function proxy(request: NextRequest) {
         const unAuthorizedCondition = (sellerRoutes.includes(pathname) && decoded?.role !== "SELLER")
                                     || (customerRoutes.includes(pathname) && decoded?.role !== "CUSTOMER")
                                     || (adminRoutes.includes(pathname) && decoded?.role !== "ADMIN");
-        console.log(unAuthorizedCondition);
         if(unAuthorizedCondition) {
             return NextResponse.redirect(new URL('/unauthorized', request.url))
         }

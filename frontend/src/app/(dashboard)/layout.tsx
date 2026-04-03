@@ -6,7 +6,8 @@ export default async function DashboardLayout({
 }: {
   children: React.ReactNode
 }) {
-    const {role} = await getUserDetails();
+    const userData = await getUserDetails();
+    const role = userData?.role;
     let routes = [
             { name: "Dashboard", path: "/dashboard" },
             { name: "Seller", path: "/seller-dashboard" },
@@ -17,6 +18,7 @@ export default async function DashboardLayout({
     if(role == "SELLER") {
           routes = [
             { name: "Add Medicine", path: "/seller-dashboard/add-medicine" },
+            { name: "Edit Medicine", path: "/seller-dashboard/edit-medicine" },
             { name: "All Medicine", path: "/seller-dashboard" },
             { name: "Orders", path: "/admin-dashboard" },
         ];
