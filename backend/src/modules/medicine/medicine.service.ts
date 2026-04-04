@@ -8,15 +8,36 @@ const medicineCreate = async (payload: any) => {
     return result;
 }
 
-const allMedicineGet = async(search: string) => {
-    return await prisma.medicine.findMany({
-        where: {
-            name: {
-                contains: search, 
-                mode: 'insensitive',
+const allMedicineGet = async(search: string, sellerId: string | null, medicineId: string|null) => {
+    if(medicineId) {
+        return await prisma.medicine.findUnique({
+            where: {
+                id: medicineId
             }
-        }
-    });
+        })
+    }
+    
+    if(!sellerId) {
+        return await prisma.medicine.findMany({
+            where: {
+                name: {
+                    contains: search, 
+                    mode: 'insensitive',
+                }
+            }
+        });
+    } else {
+        return await prisma.medicine.findMany({
+            where: {
+                name: {
+                    contains: search, 
+                    mode: 'insensitive',
+                }, 
+                seller_id: sellerId
+            }
+        });
+    }
+    
 }
 
 const editMedicine = async(medicineId: string, editedData: any) => {

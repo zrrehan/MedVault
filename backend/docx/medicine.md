@@ -145,3 +145,50 @@ Bearer Token required
   }
 }
 ```
+
+# `GET` /posts/my-posted-medicies 💊💊
+
+> 🔐 Requires Bearer Token — Seller only
+
+**Base URL:** `http://localhost:8080`
+
+**Query Parameters:**
+
+| Parameter  | Type     | Required | Description              |
+|------------|----------|----------|--------------------------|
+| `sellerId` | `string` | ✅ Yes   | The UUID of the seller   |
+| `search`   | `string` | ❌ No    | Search keyword (e.g. `Az`) |
+
+**Request Header:**
+```http
+Authorization: Bearer <token>
+```
+
+**Example Request:**
+```http
+GET http://localhost:8080/posts/my-posted-medicies?sellerId=dcee7d3f-8238-486b-8fc5-59e8b50d9549&search=Az
+```
+
+**Success Response `200 OK`:**
+```json
+{
+  "success": true,
+  "message": "Searched Medicine got successfully",
+  "data": [
+    {
+      "id": "7269f933-dfeb-4654-93ff-98faa09e94d5",
+      "name": "Azithromycin 250mg",
+      "price": 250,
+      "stockQuantity": 120,
+      "seller_id": "dcee7d3f-8238-486b-8fc5-59e8b50d9549",
+      "category": ["Antibiotic", "Painkiller"],
+      "is_active": true,
+      "manufacturer": "GlobalPharma Ltd.",
+      "image": "https://www.biofieldpharma.com/wp-content/uploads/2023/06/BIOFIELD-OZISET-250-TAB-1-scaled.jpg",
+      "description": "Azithromycin 250 mg is a broad-spectrum antibiotic used to treat bacterial infections...",
+      "createdAt": "2026-04-03T14:21:54.606Z",
+      "updatedAt": "2026-04-03T14:21:54.606Z"
+    }
+  ]
+}
+```

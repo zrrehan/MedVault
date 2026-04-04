@@ -14,8 +14,8 @@ const medicineCreate = async(req: Request, res: Response) => {
 
 const allMedicineGet = async(req: Request, res: Response) => {
     try {
-        const {search} = req.query;
-        const result = await medicineServices.allMedicineGet(search as string|| "");
+        const {search, sellerId, medicineId} = req.query;
+        const result = await medicineServices.allMedicineGet(search as string|| "", sellerId as string | null, medicineId as string | null);
         const message = "Searched Medicine got successfully";
         returnHanding(200, true, message, res, result);
     } catch(error: any) {
