@@ -20,7 +20,7 @@ const Navbar = () => {
           
           {/* Left side - Logo and links */}
           <div className="flex items-center space-x-8">
-            <div className="text-2xl font-bold text-black">
+            <div className="pl-11 md:pl-0 text-2xl font-bold text-black">
               <Link href="/">MediVault</Link>
             </div>
 

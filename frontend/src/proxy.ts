@@ -4,7 +4,7 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { cookies } from 'next/headers';
 import { envVar } from './utils/envVar';
 
-const sellerRoutes = ["/medicines", "/seller-dashboard", "/seller-dashboard/edit-medicine", "/seller-dashboard/add-medicine"];
+const sellerRoutes = ["/seller-dashboard", "/seller-dashboard/edit-medicine", "/seller-dashboard/add-medicine"];
 const customerRoutes = ["/dashboard"];
 const adminRoutes = ["/admin-dashboard"]
 

@@ -25,7 +25,7 @@ export default async function DashboardLayout({
     }
     return <section>
             <Sidebar routes={routes}></Sidebar>
-            <main className="ml-64 flex-1 p-6">
+            <main className="md:ml-64 flex-1 p-6">
                 {children}
             </main>
         </section>
