@@ -6,6 +6,10 @@ import { useEffect, useState } from "react";
 import getMedicineById from "@/app/(dashboard)/seller-dashboard/_action/edit-medicine-by-id/getSingleMedicine";
 import SingleCart from "./SingleCart";
 import { ShoppingCart } from "lucide-react";
+import emptyCart from "../../../../../public/emptyCart.png";
+import Image from "next/image";
+import { GiMedicines } from "react-icons/gi";
+import Link from "next/link";
 
 interface Medicine {
   id: string;
@@ -64,8 +68,21 @@ export default function AllItemInCart() {
   if (medicineData.length === 0) {
     return (
       <div className="min-h-[300px] flex flex-col items-center justify-center gap-3 text-gray-400">
-        <ShoppingCart className="w-12 h-12 text-gray-200" />
-        <p className="text-sm font-medium">Your cart is empty</p>
+        {/* <ShoppingCart className="w-12 h-12 text-gray-200" /> */}
+        <Image
+            src={emptyCart}
+            alt="Empty Cart"
+            width={300}      // set desired width
+            height={300}     // set desired height
+            className="mx-auto"
+        />
+        <p className="font-medium text-4xl">Your cart is empty</p>
+        <Link href = "/medicines">
+            <button className="w-[90%] md:w-125 cursor-pointer mt-1 bg-gray-900 hover:bg-gray-800 active:bg-black text-white font-semibold text-base py-3.5 rounded-xl transition-colors duration-200 shadow-sm flex items-center justify-center gap-2">
+                <GiMedicines  className="w-5 h-5" />
+                View Medicines
+            </button>
+        </Link>
       </div>
     );
   }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { LuShoppingCart } from "react-icons/lu";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,19 +43,26 @@ const Navbar = () => {
           </div>
 
           {/* Right side - Auth buttons */}
-          <div className="hidden md:flex space-x-4">
-            <Link
-              href="/login"
-              className="px-4 py-1 rounded-md border border-black text-black font-medium transition-all duration-200 hover:bg-black hover:text-white"
-            >
-              Login
+          <div className="md:flex space-x-4 flex items-center">
+            <Link href = "/cart">
+              <div className="p-1.5 flex items-center justify-center hover:text-white rounded-full border border-black hover:bg-black transition-colors duration-200 cursor-pointer">
+                <LuShoppingCart size={20} className="transition-colors duration-200" />
+              </div>
             </Link>
-            <Link
-              href="/signup"
-              className="px-4 py-1 rounded-md bg-black text-white font-medium transition-all duration-200 hover:bg-gray-800"
-            >
-              Signup
-            </Link>
+            <div className="flex gap-2">
+              <Link
+                href="/login"
+                className="px-4 py-1 rounded-md border border-black text-black font-medium transition-all duration-200 hover:bg-black hover:text-white"
+              >
+                Login
+              </Link>
+              <Link
+                href="/signup"
+                className="px-4 py-1 rounded-md bg-black text-white font-medium transition-all duration-200 hover:bg-gray-800"
+              >
+                Signup
+              </Link>
+            </div>
           </div>
 
           {/* Mobile menu button */}
