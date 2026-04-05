@@ -29,6 +29,22 @@ const postOrder = async (payload: any) => {
     return {...orderResult, sold_dataResult};
 }
 
+const getAllOrder = async (userId: string) => {
+    return await prisma.order.findMany({
+        where: {
+            userId: userId, 
+        },
+        include: {
+            sold_data: {
+                include: {
+                    medicine: true
+                }
+            }
+        }
+    })
+}
+
 export const orderServices = {
-    postOrder
+    postOrder, 
+    getAllOrder
 }

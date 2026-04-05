@@ -67,3 +67,65 @@ Bearer Token required (SELLER)
     }
 }
 ```
+
+# 📦 Get Specific User's Orders API
+
+Retrieve all orders for the authenticated user.
+
+---
+
+## 🔗 Endpoint
+
+GET http://localhost:8080/order/get-orders
+
+---
+
+## 🔐 Authorization
+
+Requires a Bearer Token.
+
+Authorization: Bearer <your_token>
+
+---
+
+## ✅ Response
+
+### Success Response
+
+```json
+{
+  "success": true,
+  "message": "All Order of this user fetched!",
+  "data": [
+    {
+      "id": "string",
+      "delivery_state": "PENDING | SHIPPED | DELIVERED",
+      "payment_state": "PENDING | PAID | FAILED",
+      "userId": "string",
+      "sold_data": [
+        {
+          "id": "string",
+          "medicineId": "string",
+          "quantity": number,
+          "priceAtPurchase": number,
+          "orderId": "string",
+          "medicine": {
+            "id": "string",
+            "name": "string",
+            "price": number,
+            "stockQuantity": number,
+            "seller_id": "string",
+            "category": ["string"],
+            "is_active": boolean,
+            "manufacturer": "string",
+            "image": "string (URL)",
+            "description": "string",
+            "createdAt": "ISO Date",
+            "updatedAt": "ISO Date"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
