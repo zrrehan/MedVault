@@ -48,3 +48,14 @@ export function removeCart(medicineId: string) {
   localStorage.setItem("sold_data", JSON.stringify(updatedCart));
   return { success: true, message: "Medicine removed from cart successfully" };
 }
+
+// Clear entire cart
+export function clearCart() {
+  if (typeof window === "undefined") {
+    return { success: false, message: "Cannot access localStorage on server" };
+  }
+
+  localStorage.removeItem("sold_data");
+
+  return { success: true, message: "Cart cleared successfully" };
+}

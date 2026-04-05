@@ -10,6 +10,7 @@ import emptyCart from "../../../../../public/emptyCart.png";
 import Image from "next/image";
 import { GiMedicines } from "react-icons/gi";
 import Link from "next/link";
+import OrderNowButton from "./OrderNowButton";
 
 interface Medicine {
   id: string;
@@ -131,10 +132,7 @@ export default function AllItemInCart() {
           </div>
 
           {/* Order Now */}
-          <button className="w-full mt-1 bg-gray-900 hover:bg-gray-800 active:bg-black text-white font-semibold text-base py-3.5 rounded-xl transition-colors duration-200 shadow-sm flex items-center justify-center gap-2">
-            <ShoppingCart className="w-5 h-5" />
-            Order Now
-          </button>
+          <OrderNowButton medicineData={medicineData} setMedicineData={setMedicineData}></OrderNowButton>
         </div>
 
       </div>
