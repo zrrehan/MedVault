@@ -3,6 +3,7 @@ import cors from 'cors';
 import { authRouter } from './modules/auth/auth.routes';
 import { postRouter } from './modules/medicine/medicine.routes';
 import { orderRouter } from './modules/order/order.routes';
+import { userRouter } from './modules/users/users.routes';
 
 const app: Application = express();
 
@@ -16,6 +17,7 @@ app.use(cors());
 app.use("/auth", authRouter);
 app.use("/posts", postRouter);
 app.use("/order", orderRouter);
+app.use("/users", userRouter);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World! Medivault is running');

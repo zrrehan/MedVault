@@ -14,7 +14,11 @@ export default async function DashboardLayout({
             { name: "Admin", path: "/admin-dashboard" },
         ];
 
-    if(role == "ADMIN") {};
+    if(role == "ADMIN") {
+        routes = [
+            { name: "Admin", path: "/admin-dashboard" },
+        ];
+    };
     if(role == "SELLER") {
           routes = [
             { name: "Add Medicine", path: "/seller-dashboard/add-medicine" },
