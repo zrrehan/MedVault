@@ -10,6 +10,19 @@ async function getAllUser() {
     });
 }
 
+const userStatusChange = async (userId: string) => {
+    const result = await prisma.user.findUnique({where: {id: userId}})
+    return await prisma.user.update({
+        where: {
+            id: userId
+        }, 
+        data: {
+            banned: !result?.banned
+        }
+    })
+}
+
 export const userServices = {
-    getAllUser
+    getAllUser, 
+    userStatusChange
 }

@@ -8,10 +8,22 @@ const getAllUser = async (req: Request, res: Response)=> {
         const message = "All User Fetched Successfully";
         returnHanding(200, true, message, res, result)
     } catch(error: any) {
-        res.send(error);
+        returnHanding(500, false, "Something Went Wrong", res, error);
+    }
+}
+
+const userStatusChange = async(req: Request, res: Response) => {
+    try {
+        const {userId} = req.query;
+        const result = await userServices.userStatusChange(userId as string);
+        const message = "Ban Status Changed!!"
+        returnHanding(200, true, message, res, result);
+    } catch(error: any){
+        returnHanding(500, false, "Something Went Wrong", res, error);
     }
 }
 
 export const userController = {
-    getAllUser
+    getAllUser, 
+    userStatusChange
 }
