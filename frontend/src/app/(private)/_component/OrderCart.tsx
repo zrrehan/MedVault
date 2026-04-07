@@ -26,7 +26,7 @@ interface Order {
 interface OrderCardProps {
   order: Order;
   onCancel: (id: string) => void;
-  onPay: (id: string) => void;
+  onPay: (id: string, payment: number, order: any) => void;
 }
 
 export default function OrderCard({ order, onCancel, onPay }: OrderCardProps) {
@@ -133,7 +133,7 @@ export default function OrderCard({ order, onCancel, onPay }: OrderCardProps) {
 
         <div className="flex gap-2">
           <button
-            onClick={() => onPay(order.id)}
+            onClick={() => onPay(order.id, total, order)}
             className="bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-800 active:scale-95 transition-all duration-150"
           >
             Pay Now

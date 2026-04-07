@@ -2,12 +2,14 @@
 
 import { useState } from 'react';
 import OrderCard from './OrderCart';
+import {loadStripe} from '@stripe/stripe-js';
+import { envVar } from '@/utils/envVar';
+import { paymentAction } from '../_action/payment';
 
 
 export default function AllOrder({ data }: { data: any }) {
   const orders = data?.data ?? data ?? [];
   const [orderList, setOrderList] = useState(orders);
-  console.log(orderList, "###################################################");
   const handleCancel = async (id: string) => {
     // TODO: wire your cancel server action here
     setOrderList((prev: any[]) =>
@@ -17,9 +19,30 @@ export default function AllOrder({ data }: { data: any }) {
     );
   };
 
-  const handlePay = async (id: string) => {
-    // TODO: wire your payment gateway / redirect here
-    console.log('Initiating payment for order:', id);
+  const OrderShowcaseForStripe = (order: any) => {
+    const data = []
+    // console.log(order);
+    for(let singleOrder of order.sold_data) {
+      const singledata =  {
+        name: singleOrder.medicine.name,
+        price: singleOrder.medicine.price, 
+        image: singleOrder.medicine.image, 
+        quantity: singleOrder.quantity, 
+        total: singleOrder.medicine.price * singleOrder.quantity
+      }
+      data.push(singledata);
+    }
+    return data;
+  }
+
+  const handlePay = async (id: string, payment: number, order: any) => {
+    console.log(envVar.stripe_key);
+    const stripe = await loadStripe(envVar.stripe_key as string);
+    const body = OrderShowcaseForStripe(order);
+    
+    const data = await paymentAction(body);
+    window.location.href = data.url;
+
   };
 
   if (!orderList || orderList.length === 0) {
