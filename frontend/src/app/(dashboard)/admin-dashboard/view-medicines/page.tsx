@@ -41,7 +41,7 @@ export default function ViewMedicines() {
   }, [search]);
 
   return (
-    <div className="max-w-[1200px] w-[92%] mx-auto py-10">
+    <div className="max-w-[1200px] w-[92%] mx-auto">
 
       {/* Search Component */}
       <SearchBar setSearch={setSearch} placeholder="Type Medicine ID or Name"/>

@@ -11,7 +11,7 @@ function SearchBar({ setSearch, placeholder }: any) {
     }
 
     return (
-        <div className="w-full max-w-xl mx-auto my-10 px-6">
+        <div className="w-full max-w-xl mx-auto px-6">
             <Field className="space-y-3">
                 {/* Modern label */}
                 <FieldLabel className="text-xl font-semibold text-gray-900 tracking-tight flex items-center gap-2">
