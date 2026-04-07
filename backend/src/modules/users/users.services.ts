@@ -22,7 +22,47 @@ const userStatusChange = async (userId: string) => {
     })
 }
 
+async function viewOrders(search: string) {
+    return prisma.order.findMany({
+        where: {
+            id: {
+                contains: search, 
+                mode: 'insensitive',
+            }
+        },
+        include: {
+            sold_data: {
+                include: {
+                    medicine: true
+                }
+            }
+        }
+    });
+}
+async function viewMedicines(search: string) {
+    return prisma.medicine.findMany({
+        where: {
+            OR: [
+                    {
+                        id: {
+                            contains: search,
+                            mode: 'insensitive',
+                        },
+                    },
+                    {
+                        name: {
+                            contains: search,
+                            mode: 'insensitive',
+                        },
+                    },
+                ],
+            },
+    });
+}
+
 export const userServices = {
     getAllUser, 
-    userStatusChange
+    userStatusChange, 
+    viewMedicines, 
+    viewOrders, 
 }

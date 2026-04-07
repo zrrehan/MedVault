@@ -23,7 +23,30 @@ const userStatusChange = async(req: Request, res: Response) => {
     }
 }
 
+const viewOrders = async(req: Request, res: Response) => {
+    try {
+        const {search} = req.query;
+        const result = await userServices.viewOrders(search as string);
+        const message = "All Order Fetched Successfully";
+        returnHanding(200, true, message, res, result);
+    } catch(error: any) {
+        returnHanding(500, false, "Something Went Wrong", res, error);
+    }
+}
+const viewMedicines = async(req: Request, res: Response) => {
+    try {
+        const {search} = req.query;
+        const result = await userServices.viewMedicines(search as string);
+        const message = "All Order Fetched Successfully";
+        returnHanding(200, true, message, res, result);
+    } catch(error: any) {
+        returnHanding(500, false, "Something Went Wrong", res, error);
+    }
+}
+
 export const userController = {
     getAllUser, 
-    userStatusChange
+    userStatusChange, 
+    viewOrders, 
+    viewMedicines
 }

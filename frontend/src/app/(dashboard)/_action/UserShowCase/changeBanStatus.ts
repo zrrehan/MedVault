@@ -1,11 +1,12 @@
 "use server";
 
+import { envVar } from "@/utils/envVar";
 import { cookies } from "next/headers";
 
 export async function changeBanStatus(userId: string) {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")
-    const url = `http://localhost:8080/users/user-status-change?userId=${userId}`
+    const url = `${envVar.backend_server}/users/user-status-change?userId=${userId}`
     const res = await fetch(url, {
         method: "PUT", 
         headers: {

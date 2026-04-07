@@ -4,16 +4,16 @@ import jwt, { JwtPayload } from "jsonwebtoken";
 import { cookies } from 'next/headers';
 import { envVar } from './utils/envVar';
 
-const sellerRoutes = ["/seller-dashboard", "/seller-dashboard/edit-medicine", "/seller-dashboard/add-medicine"];
-const customerRoutes = ["/dashboard"];
-const adminRoutes = ["/admin-dashboard"]
-
+const sellerRoutes = ["/seller-dashboard", "/seller-dashboard/edit-medicine", "/seller-dashboard/add-medicine", ];
+const customerRoutes = ["/dashboard", ];
+const adminRoutes = ["/admin-dashboard", ]
+const privateRoutes = ["/my-orders"]
 export async function proxy(request: NextRequest) {
     const {pathname} = request.nextUrl;
     const cookieStore = await cookies();
     const token = cookieStore.get("token");
 
-    const condition = sellerRoutes.includes(pathname) || customerRoutes.includes(pathname) || adminRoutes.includes(pathname)
+    const condition = privateRoutes.includes(pathname) || sellerRoutes.includes(pathname) || customerRoutes.includes(pathname) || adminRoutes.includes(pathname)
     if(condition) {
         if(!token || token?.value == "") {
             return NextResponse.redirect(new URL('/login', request.url))

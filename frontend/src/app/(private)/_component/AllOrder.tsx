@@ -7,7 +7,7 @@ import OrderCard from './OrderCart';
 export default function AllOrder({ data }: { data: any }) {
   const orders = data?.data ?? data ?? [];
   const [orderList, setOrderList] = useState(orders);
-
+  console.log(orderList, "###################################################");
   const handleCancel = async (id: string) => {
     // TODO: wire your cancel server action here
     setOrderList((prev: any[]) =>

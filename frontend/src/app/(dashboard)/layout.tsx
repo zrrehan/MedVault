@@ -16,7 +16,9 @@ export default async function DashboardLayout({
 
     if(role == "ADMIN") {
         routes = [
-            { name: "Admin", path: "/admin-dashboard" },
+            { name: "Manage Users", path: "/admin-dashboard" },
+            { name: "View Orders", path: "/admin-dashboard/view-orders" },
+            { name: "View Medicines", path: "/admin-dashboard/view-medicines" },
         ];
     };
     if(role == "SELLER") {
