@@ -32,7 +32,7 @@ export async function proxy(request: NextRequest) {
         if(pathname == "/dashboard") {
             console.log(decoded?.role === "SELLER")
             if (decoded?.role === "ADMIN") return NextResponse.redirect(new URL('/admin-dashboard', request.url))
-            if (decoded?.role === "SELLER") return NextResponse.redirect(new URL('/seller-dashboard', request.url))
+            if (decoded?.role === "SELLER") return NextResponse.redirect(new URL('/seller-dashboard/add-medicine', request.url))
             if (decoded?.role === "CUSTOMER") return NextResponse.redirect(new URL('/dashboard', request.url))
         }
         

@@ -25,8 +25,7 @@ export default async function DashboardLayout({
           routes = [
             { name: "Add Medicine", path: "/seller-dashboard/add-medicine" },
             { name: "Edit Medicine", path: "/seller-dashboard/edit-medicine" },
-            { name: "All Medicine", path: "/seller-dashboard" },
-            { name: "Orders", path: "/admin-dashboard" },
+            
         ];
     }
     return <section>

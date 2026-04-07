@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 
-function Unauthorized() {
+function PaymentFailed() {
   return (
     <div className="relative min-h-svh flex items-center justify-center px-6 bg-white overflow-hidden">
 
-      {/* Grid texture */}
+      {/* Grid */}
       <div
         className="pointer-events-none absolute inset-0"
         style={{
@@ -18,9 +18,9 @@ function Unauthorized() {
 
       <div className="relative z-10 text-center max-w-md">
 
-        {/* Code */}
+        {/* Status */}
         <p className="text-xs tracking-[0.3em] uppercase text-black/30 mb-4">
-          401 Unauthorized
+          Payment Status
         </p>
 
         {/* Heading */}
@@ -28,27 +28,30 @@ function Unauthorized() {
           className="text-4xl md:text-5xl font-black text-black leading-tight"
           style={{ fontFamily: "'Georgia', serif" }}
         >
-          Access Denied.
+          Payment Failed.
         </h1>
 
         {/* Description */}
         <p className="mt-4 text-sm text-black/50 leading-relaxed">
-          You don’t have permission to view this page. Please login with the correct account.
+          Something went wrong while processing your payment. Please try again or use a different method.
         </p>
 
+        {/* Divider */}
+        <div className="w-12 h-[2px] bg-black/10 mx-auto my-6" />
+
         {/* CTA */}
-        <div className="mt-8 flex justify-center gap-3">
+        <div className="flex justify-center gap-3">
           <Link
-            href="/login"
+            href="/cart"
             className="px-6 py-3 rounded-full bg-black text-white text-sm font-bold hover:opacity-80 transition"
           >
-            Go to Login
+            Try Again
           </Link>
           <Link
             href="/"
             className="px-6 py-3 rounded-full border border-black/10 text-black/70 text-sm font-semibold hover:bg-black hover:text-white transition"
           >
-            Back Home
+            Go Home
           </Link>
         </div>
       </div>
@@ -56,4 +59,4 @@ function Unauthorized() {
   );
 }
 
-export default Unauthorized;
+export default PaymentFailed;

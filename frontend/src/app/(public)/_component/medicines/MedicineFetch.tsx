@@ -36,7 +36,7 @@ function MedicineFetch() {
     }, [search])
     return(
         <div>
-            <MedicineInput setSearch={setSearch}></MedicineInput>
+            <MedicineInput setSearch={setSearch} placeholder="Search By Name"></MedicineInput>
             <div className="max-w-287.5 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {medicineData?.data?.map((med: any) => (
                     <div

@@ -1,6 +1,6 @@
-import { LoginForm } from "@/app/(authentication)/login/_component/login-form"
+import { SigninForm } from "./_component/SigninForm";
 
-export default function Page() {
+export default function Signin() {
   return (
     <div className="relative flex min-h-svh w-full items-center justify-center px-6 py-16 bg-white overflow-hidden">
 
@@ -15,24 +15,24 @@ export default function Page() {
       />
 
       <div className="relative z-10 w-full max-w-md">
-        
+
         {/* Heading */}
         <div className="mb-10 text-center">
           <p className="text-xs tracking-[0.2em] uppercase text-black/30 mb-3">
-            Welcome Back
+            Join MediVault
           </p>
           <h1
             className="text-4xl font-black text-black leading-tight"
             style={{ fontFamily: "'Georgia', serif" }}
           >
-            Login to MediVault
+            Create Your Account
           </h1>
           <p className="text-sm text-black/50 mt-3">
-            Access your account and continue your journey.
+            Start ordering medicines in seconds.
           </p>
         </div>
 
-        <LoginForm />
+        <SigninForm />
       </div>
     </div>
   );

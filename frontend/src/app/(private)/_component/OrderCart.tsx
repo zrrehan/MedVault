@@ -139,14 +139,14 @@ export default function OrderCard({ order, onCancel, onPay }: OrderCardProps) {
             Pay Now
           </button>
 
-          {order.delivery_state === 'PENDING' && (
+          {/* {order.delivery_state === 'PENDING' && (
             <button
               onClick={() => onCancel(order.id)}
               className="border border-gray-200 text-gray-700 text-xs font-semibold px-4 py-2 rounded-lg hover:border-red-300 hover:text-red-600 hover:bg-red-50 active:scale-95 transition-all duration-150"
             >
               Cancel
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </div>

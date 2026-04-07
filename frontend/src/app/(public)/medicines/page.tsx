@@ -6,7 +6,7 @@ function Medicines() {
   return (
     <>
       <main className="max-w-screen mx-auto p-4">
-        <h1 className="text-3xl font-bold text-gray-900 mb-6">
+        <h1 className="text-3xl font-bold mx-auto w-fit mt-5">
           All Available Medicines
         </h1>
 
