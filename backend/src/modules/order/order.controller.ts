@@ -24,7 +24,18 @@ const getAllOrder = async(req: Request, res: Response) => {
     }
 }
 
+const updateOrderStatus = async (req: Request, res: Response) => {
+    try {
+        const result = await orderServices.updateOrderStatus(req.body.orderId,req.body.delivery_status as "SHIPPED" | "DELIVERED")
+        const message = "Delivery Status Updated!"
+        returnHanding(201, true, message, res, result);
+    } catch(error: any) {
+        returnHanding(500, false, "Somethin Wrong! Try later!", res, error)
+    }
+}
+
 export const orderControllers = {
     postOrder, 
-    getAllOrder
+    getAllOrder, 
+    updateOrderStatus
 } 

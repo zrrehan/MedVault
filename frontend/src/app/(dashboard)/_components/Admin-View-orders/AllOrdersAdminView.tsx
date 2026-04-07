@@ -1,3 +1,12 @@
+"use client";
+import { Button } from "@/components/ui/button";
+import ConfirmModal from "@/components/ui/Modal";
+import { useState } from "react";
+import { deliveryStatusUpdate } from "../../_action/AdminViewOrders/deliveryStatusUpdate";
+
+
+
+
 export default function AllOrdersAdminView({
     order,
     totalItems,
@@ -7,6 +16,20 @@ export default function AllOrdersAdminView({
     totalItems: number;
     totalPrice: number;
 }) {
+    const [deliveryStatus, setDeliveryStatus] = useState(order.delivery_state)
+    const [loading, setLoading] = useState(false)
+    async function orderActions(orderId:string, delivery_state: string) {
+        setLoading(true)
+        if(deliveryStatus === "PENDING") {
+            setDeliveryStatus("SHIPPED");
+            await deliveryStatusUpdate(orderId, "SHIPPED");
+            setLoading(false)
+        } else if(deliveryStatus === "SHIPPED") {
+            setDeliveryStatus("DELIVERED");
+            await deliveryStatusUpdate(orderId, "DELIVERED");
+            setLoading(false)
+        }
+    }
     return (
         <div className="border rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 p-6 bg-white">
             
@@ -21,7 +44,7 @@ export default function AllOrdersAdminView({
 
                 <div className="flex gap-4 mt-3 sm:mt-0">
                     <span className="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
-                        Delivery: {order.delivery_state}
+                        Delivery: {deliveryStatus}
                     </span>
                     <span className="px-3 py-1 text-xs rounded-full bg-blue-100 text-blue-700">
                         Payment: {order.payment_state}
@@ -84,6 +107,19 @@ export default function AllOrdersAdminView({
 
             {/* Footer */}
             <div className="border-t mt-6 pt-4 flex justify-between items-center">
+                <ConfirmModal
+                    trigger={
+                        <Button disabled={deliveryStatus === "DELIVERED" || loading} className="px-10 py-4 rounded-xl hover:bg-gray-900 cursor-pointer">
+                            {
+                                loading && "Please Wait..." ||
+                                deliveryStatus === "PENDING" && "Ship Now" ||
+                                deliveryStatus === "SHIPPED" && "Deliver Now" ||
+                                deliveryStatus === "DELIVERED" && "Delivered"
+                            }
+                        </Button>
+                    }
+                    onConfirm={() => orderActions(order.id, order.delivery_state)}
+                ></ConfirmModal>
                 <p className="text-sm text-gray-500">
                     Total Items:{" "}
                     <span className="font-semibold">{totalItems}</span>
