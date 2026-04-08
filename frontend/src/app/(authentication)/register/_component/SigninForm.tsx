@@ -15,19 +15,30 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { useActionState, useEffect } from "react";
+import { useActionState, useContext, useEffect } from "react";
 import { signInAction } from "./signInAction";
 import { Checkbox } from "@/components/ui/checkbox";
+import { AuthContext } from "@/utils/AuthContext";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 // import { loginServer } from "./login-server";
 
 export function SigninForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { user, setUser } = useContext(AuthContext);
   const [state, action, pending] = useActionState(signInAction, null);
+  const router = useRouter();
   useEffect(() => {
     if(!state) return;
-    alert(state.message);
+    setUser(state.data);
+    if(state.success) {
+      toast.success(state.message);
+      router.push("/")
+    } else {
+      toast.error(state.message);
+    }
   }, [state]);
   
   return (

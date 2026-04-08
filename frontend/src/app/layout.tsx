@@ -4,6 +4,7 @@ import "./index.css";
 import Navbar from "@/components/layout/Navbar";
 import { Toaster } from "sonner";
 import Footer from "@/components/layout/Footer";
+import { AuthProvider } from "@/utils/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,12 +33,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar></Navbar>
-        <Toaster richColors />
-        <div className="my-20 min-h-[80vh]">
-          {children}
-        </div>
-        <Footer></Footer>
+        <AuthProvider>
+          <Navbar></Navbar>
+          <Toaster richColors />
+          <div className="my-20 min-h-[80vh]">
+            {children}
+          </div>
+          <Footer></Footer>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -15,19 +15,28 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import { useActionState, useEffect } from "react";
+import { useActionState, useContext, useEffect } from "react";
 import { loginServer } from "./login-server";
 import { toast } from "sonner";
+import { AuthContext } from "@/utils/AuthContext";
+import { useRouter } from "next/navigation";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const [state, action, pending] = useActionState(loginServer, null);
+  const { user, setUser } = useContext(AuthContext);
+  const router = useRouter();
   useEffect(() => {
     if(!state) return;
-    console.log(state);
-    state.success ? toast.success(state.message) : toast.error(state.message);
+    setUser(state.data);
+    if(state.success) {
+      toast.success(state.message);
+      router.push("/")
+    } else {
+      toast.error(state.message);
+    }
   }, [state]);
   
   return (
