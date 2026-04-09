@@ -60,9 +60,23 @@ async function viewMedicines(search: string) {
     });
 }
 
+const updateOwnProfile = async(userDetails: any, payload: any) => {
+    console.log("payload", {...payload, id:userDetails.id});
+    return await prisma.user.update({
+        where: {
+            id: userDetails.id
+        }, 
+        data: {
+            name: payload.name,
+            profilePicture: payload.profilePicture
+        }
+    })
+}
+
 export const userServices = {
     getAllUser, 
     userStatusChange, 
     viewMedicines, 
     viewOrders, 
+    updateOwnProfile
 }

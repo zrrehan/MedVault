@@ -44,9 +44,21 @@ const viewMedicines = async(req: Request, res: Response) => {
     }
 }
 
+const updateOwnProfile = async(req: Request, res: Response) => {
+    try {
+        const result = await userServices.updateOwnProfile(req.userInfo, req.body);
+        const message = "Your Profile is updated";
+        console.log("result", result);
+        returnHanding(200, true, message, res, result);
+    } catch(error: any) {
+        returnHanding(500, false, "Something Went Wrong", res, error);
+    }
+}
+
 export const userController = {
     getAllUser, 
     userStatusChange, 
     viewOrders, 
-    viewMedicines
+    viewMedicines, 
+    updateOwnProfile
 }

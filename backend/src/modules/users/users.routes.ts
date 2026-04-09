@@ -9,6 +9,6 @@ router.get("/all-user", authMiddleware(UserType.admin), userController.getAllUse
 router.put("/user-status-change", authMiddleware(UserType.admin), userController.userStatusChange);
 router.get("/view-orders", authMiddleware(UserType.admin), userController.viewOrders);
 router.get("/view-medicines", authMiddleware(UserType.admin), userController.viewMedicines);
-
+router.put("/update-own-profile", authMiddleware(UserType.admin, UserType.seller, UserType.customer), userController.updateOwnProfile);
 
 export const userRouter = router;
