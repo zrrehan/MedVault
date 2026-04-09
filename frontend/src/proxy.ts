@@ -6,12 +6,14 @@ import { envVar } from './utils/envVar';
 
 const sellerRoutes = ["/seller-dashboard", "/seller-dashboard/edit-medicine", "/seller-dashboard/add-medicine", ];
 const customerRoutes = ["/dashboard", ];
-const adminRoutes = ["/admin-dashboard", ]
+const adminRoutes = ["/admin-dashboard", "/admin-dashboard/view-orders", "/admin-dashboard/view-medicines"]
 const privateRoutes = ["/my-orders"]
 export async function proxy(request: NextRequest) {
     const {pathname} = request.nextUrl;
     const cookieStore = await cookies();
     const token = cookieStore.get("token");
+
+    console.log(token);
 
     const condition = privateRoutes.includes(pathname) || sellerRoutes.includes(pathname) || customerRoutes.includes(pathname) || adminRoutes.includes(pathname)
     if(condition) {
@@ -22,6 +24,10 @@ export async function proxy(request: NextRequest) {
 
         try {
             decoded = jwt.verify(token?.value as string, envVar.jwt_secret as string) as JwtPayload;
+            if (decoded.banned) {
+                console.log("hello")
+                return NextResponse.redirect(new URL('/banned', request.url))
+            }
         } catch(error) {
             const res = NextResponse.redirect(new URL('/login', request.url));
             res.cookies.delete("token");
@@ -33,7 +39,7 @@ export async function proxy(request: NextRequest) {
             console.log(decoded?.role === "SELLER")
             if (decoded?.role === "ADMIN") return NextResponse.redirect(new URL('/admin-dashboard', request.url))
             if (decoded?.role === "SELLER") return NextResponse.redirect(new URL('/seller-dashboard/add-medicine', request.url))
-            if (decoded?.role === "CUSTOMER") return NextResponse.redirect(new URL('/dashboard', request.url))
+            if (decoded?.role === "CUSTOMER") return NextResponse.redirect(new URL('/my-orders', request.url))
         }
         
         const unAuthorizedCondition = (sellerRoutes.includes(pathname) && decoded?.role !== "SELLER")

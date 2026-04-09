@@ -24,7 +24,8 @@ function ViewMedicines() {
             try {
                 const res = await fetchOrderForAdmin(search); 
                 console.log("res", res);
-                setOrders(res || []);
+                let filteredResult = res.filter((singleRes:any) => singleRes.delivery_state!=="DELIVERED")
+                setOrders(filteredResult || []);
             } catch (err) {
                 console.error("Failed to fetch orders:", err);
             } finally {
@@ -34,7 +35,7 @@ function ViewMedicines() {
 
         fetchData();
     }, [search]); // 🔥 refetch when search changes
-    console.log(orders);
+    console.log(orders); //////////////////
     return (
         <div className="max-w-[1200px] w-[92%] mx-auto">
 

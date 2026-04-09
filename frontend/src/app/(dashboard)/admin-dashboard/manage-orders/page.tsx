@@ -32,7 +32,7 @@ async function ViewMedicines() {
     return (
         <div className="max-w-300 w-[92%] mx-auto py-10">
             <h1 className="text-3xl font-bold text-center mb-10">
-                All Orders
+                All Medicines
             </h1>
 
             <div className="space-y-10">

@@ -18,6 +18,16 @@ const soldDataCreatorForPostOrder = async (payload: any, orderId: string) => {
 }
 
 const postOrder = async (payload: any) => {
+    const userDetils = await prisma.user.findUnique({
+        where: {
+            id: payload.userId
+        }
+    })
+
+    if(userDetils?.banned) {
+        throw new Error("You Are Banned");
+    }
+
     const orderResult = await prisma.order.create({
         data: {
             userId: payload.userId

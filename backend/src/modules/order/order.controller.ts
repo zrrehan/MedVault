@@ -7,8 +7,8 @@ const postOrder = async (req: Request, res: Response) => {
         const result = await orderServices.postOrder(req.body);
         const message = "Order has created successfully!";
         returnHanding(201, true, message, res, result);
-    } catch(error) {
-        returnHanding(500, false, "Somethin Wrong! Try later!", res)
+    } catch(error:any) {
+        returnHanding(500, false, error?.message || "Something Went Wrong", res)
     }
 }
 

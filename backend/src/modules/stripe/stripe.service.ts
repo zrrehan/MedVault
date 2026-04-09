@@ -7,8 +7,8 @@ async function payment(lineItems: any, orderId: string) {
         payment_method_types: ["card"], 
         line_items: lineItems, 
         mode: "payment", 
-        success_url:`http://localhost:3000/my-orders/success?orderId=${orderId}`, 
-        cancel_url:`http://localhost:3000/my-orders/failed?orderId=${orderId}`, 
+        success_url:`${config.myFrontend}my-orders/success?orderId=${orderId}`, 
+        cancel_url: `${config.myFrontend}my-orders/failed?orderId=${orderId}`, 
         metadata: {
             orderId: orderId
         }

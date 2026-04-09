@@ -8,4 +8,5 @@ export default {
   database_url: process.env.DATABASE_URL,
   jwt_private_key: process.env.JWT_PRIVATE_KEY,
   stripe_key: process.env.STRIPE_KEY,
+  myFrontend: process.env.MY_FRONTEND,
 };
