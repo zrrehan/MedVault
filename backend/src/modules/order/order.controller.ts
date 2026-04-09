@@ -34,8 +34,19 @@ const updateOrderStatus = async (req: Request, res: Response) => {
     }
 }
 
+const updatePaidStatus = async(req: Request, res: Response) => {
+    try {
+        const {sessionId, orderId} = req.query;
+        const result = await orderServices.updatePaidStatus(sessionId as string, orderId as string)
+        returnHanding(200, true, "Updated Successfully", res, result);
+    } catch(error: any) {
+        returnHanding(500, false, "Somethin Wrong! Try later!", res, error)
+    }
+}
+
 export const orderControllers = {
     postOrder, 
     getAllOrder, 
-    updateOrderStatus
+    updateOrderStatus, 
+    updatePaidStatus
 } 

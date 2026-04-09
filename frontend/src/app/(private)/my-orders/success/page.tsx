@@ -1,8 +1,20 @@
 "use client";
-
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { updatePaymentAction } from "../../_action/updatePayment";
+import { useEffect } from "react";
 
 function PaymentSuccess() {
+  const searchParams = useSearchParams()
+  const orderId = searchParams.get("orderId");
+  
+  useEffect(() => {
+    async function updatePayment() {
+      await updatePaymentAction(orderId as string, localStorage.getItem("payment_id") || "");
+    }
+    updatePayment();
+  })
+
   return (
     <div className="relative min-h-svh flex items-center justify-center px-6 bg-white overflow-hidden">
 

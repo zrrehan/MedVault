@@ -40,9 +40,9 @@ export default function AllOrder({ data }: { data: any }) {
     const stripe = await loadStripe(envVar.stripe_key as string);
     const body = OrderShowcaseForStripe(order);
     
-    const data = await paymentAction(body);
+    const data = await paymentAction(body, order.id);
+    localStorage.setItem("payment_id", data.id);
     window.location.href = data.url;
-
   };
 
   if (!orderList || orderList.length === 0) {

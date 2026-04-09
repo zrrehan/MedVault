@@ -26,6 +26,7 @@ function OrderNowButton({ medicineData, setMedicineData }: {medicineData:any, se
 
     async function orderHandler() {
         const response = await orderNow(getCart());
+        console.log(response)
         if(!response.success) {
             toast.error(response.message || "Something Went Wrong!");
             if(response.message === "Please Log-In") {

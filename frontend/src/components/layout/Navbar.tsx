@@ -48,9 +48,14 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Medicines", href: "/medicines" },
-    { name: "Dashboard", href: "/dashboard" },
     { name: "My Orders", href: "/my-orders" },
   ];
+
+  if(user && user.role !== "CUSTOMER") {
+    navLinks.push(
+      { name: "Dashboard", href: "/dashboard" }
+    )
+  }
 
   return (
     <div

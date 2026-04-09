@@ -1,18 +1,15 @@
 'use server';
-
 import { envVar } from "@/utils/envVar";
 
-export async function paymentAction(body: any, orderId: string) {
-    const url = `${envVar.backend_server}/stripe/payment?orderId=${orderId}`;
+export async function updatePaymentAction(orderId: string, sessionId: string) {
+    const url = `${envVar.backend_server}/order/update-paid-status?orderId=${orderId}&sessionId=${sessionId}`;
     const data = await fetch(url, {
-        method: "POST", 
+        method: "PUT", 
         headers: {
             "Content-Type": "application/json", 
         },
-        body: JSON.stringify({products:body}),
         cache: "no-store",
     })
     const response = await data.json();
-    console.log(response);
     return response;
 }

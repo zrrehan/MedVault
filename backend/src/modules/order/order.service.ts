@@ -1,4 +1,6 @@
+import config from "../../config";
 import { prisma } from "../../lib/prisma"
+const stripe = require("stripe")(config.stripe_key);
 
 const soldDataCreatorForPostOrder = async (payload: any, orderId: string) => {
     let soldData = payload.sold_data;
@@ -55,8 +57,25 @@ const updateOrderStatus = async (orderId: string, status: "SHIPPED" | "DELIVERED
     })
 }
 
+const updatePaidStatus = async(sessionId: string, orderId: string) => {
+    const session = await stripe.checkout.sessions.retrieve(sessionId);
+    if(session.payment_status != "paid" || session.metadata.orderId !== orderId) {
+        throw new Error("Something Went Wrong");
+    } 
+
+    return await prisma.order.update({
+        where: {
+            id: orderId
+        }, 
+        data: {
+            payment_state: "PAID"
+        }
+    })
+}
+
 export const orderServices = {
     postOrder, 
     getAllOrder, 
-    updateOrderStatus
+    updateOrderStatus, 
+    updatePaidStatus
 }
