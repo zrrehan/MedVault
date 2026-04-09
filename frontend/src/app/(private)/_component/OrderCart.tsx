@@ -133,10 +133,11 @@ export default function OrderCard({ order, onCancel, onPay }: OrderCardProps) {
 
         <div className="flex gap-2">
           <button
+            disabled={order.payment_state =="PAID"}
             onClick={() => onPay(order.id, total, order)}
             className="bg-black text-white text-xs font-semibold px-4 py-2 rounded-lg hover:bg-gray-800 active:scale-95 transition-all duration-150"
           >
-            Pay Now
+            {order.payment_state === "PAID" ? "PAID":"PAY NOW"}
           </button>
 
           {/* {order.delivery_state === 'PENDING' && (
