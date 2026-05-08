@@ -4,6 +4,7 @@ import { useActionState, useEffect, useState } from "react";
 import { getMedicine } from "../../action/getMedicine";
 import MedicineInput from "./MedicineInput";
 import Link from "next/link";
+import AiChat from "./AIChat";
 type Medicine = {
         id: string;
         name: string;
@@ -28,6 +29,8 @@ function MedicineFetch() {
     const [search, setSearch] = useState("");
     const [medicineData, setMedicineData] = useState<MedicineResponse |null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const [modalOpen, setModalOpen] = useState<boolean>(false);
+    const [medicineSelect, setMedicineSelect] = useState<any | null>(null);
     useEffect(() => {
         const fetchData = async() => {
             setLoading(true);
@@ -148,10 +151,28 @@ function MedicineFetch() {
                                     View Details
                                 </button>
                             </Link>
+                            <button
+                                onClick={() => {
+                                    setMedicineSelect(med);
+                                    setModalOpen(true);
+                                }}
+                                className="w-full mt-2 flex items-center justify-center gap-2 text-sm font-medium py-2 px-4 rounded-lg border border-gray-200 text-gray-700 hover:border-gray-400 hover:text-black hover:bg-gray-50 cursor-pointer transition-all duration-200"
+                            >
+                                <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09z" />
+                                </svg>
+                                Ask AI
+                            </button>
                         </div>
                     </div>
                 </div>
             ))}
+            {
+                modalOpen && medicineSelect && <AiChat medicine={medicineSelect} onClose={() => {
+                    setModalOpen(false)
+                    setMedicineSelect(null)
+                }}></AiChat>
+            }
         </div>
     }
     return(
