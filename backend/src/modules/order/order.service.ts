@@ -57,6 +57,37 @@ const getAllOrder = async (userId: string) => {
 }
 
 const updateOrderStatus = async (orderId: string, status: "SHIPPED" | "DELIVERED") => {
+    const order = await prisma.order.findUnique({
+        where: { id: orderId },
+        include: { sold_data: true }
+    });
+
+    if (!order) {
+        throw new Error("Order not found");
+    }
+
+    if ((status === "SHIPPED" || status === "DELIVERED") && order.delivery_state === "PENDING") {
+        return await prisma.$transaction(async (tx) => {
+            const updatedOrder = await tx.order.update({
+                where: { id: orderId },
+                data: { delivery_state: status }
+            });
+
+            for (const item of order.sold_data) {
+                await tx.medicine.update({
+                    where: { id: item.medicineId },
+                    data: {
+                        stockQuantity: {
+                            decrement: item.quantity
+                        }
+                    }
+                });
+            }
+
+            return updatedOrder;
+        });
+    }
+
     return prisma.order.update({
         where: {
             id: orderId
