@@ -175,14 +175,14 @@ export default function Hero() {
           style={{ transitionDelay: "450ms" }}
         >
           <Link
-            href="/shop"
+            href="/medicines"
             className="group flex items-center gap-2 bg-black text-white font-bold text-sm px-8 py-4 rounded-full hover:opacity-75 transition-opacity duration-300"
           >
             Browse All Medicines
             <ArrowRightIcon className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
-            href="/register?role=seller"
+            href="/register"
             className="flex items-center gap-2 border-2 border-black text-black font-bold text-sm px-8 py-4 rounded-full hover:bg-black hover:text-white transition-all duration-300"
           >
             Sell on MediVault
