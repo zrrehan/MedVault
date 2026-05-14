@@ -11,7 +11,7 @@ function MedicineInput({ setSearch, placeholder }: any) {
     }
 
     return (
-        <div className="my-5 mb-15 w-full max-w-xl mx-auto px-6">
+        <div className="my-5 w-full max-w-xl mx-auto px-6">
             <Field className="space-y-3">
                 {/* The actual search bar - completely new floating card style */}
                 <div className="relative group bg-white rounded-3xl shadow-xl border border-gray-100 p-2 hover:shadow-2xl transition-all duration-300 focus-within:shadow-2xl">

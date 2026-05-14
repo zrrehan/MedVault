@@ -3,6 +3,7 @@
 import { useActionState, useEffect, useState } from "react";
 import { getMedicine } from "../../action/getMedicine";
 import MedicineInput from "./MedicineInput";
+import MiniNavbar from "../../medicines/_component/MiniNavbar";
 import Link from "next/link";
 import AiChat from "./AIChat";
 type Medicine = {
@@ -31,6 +32,10 @@ function MedicineFetch() {
     const [loading, setLoading] = useState<boolean>(false);
     const [modalOpen, setModalOpen] = useState<boolean>(false);
     const [medicineSelect, setMedicineSelect] = useState<any | null>(null);
+    const [sortBy, setSortBy] = useState<string>("none");
+    const [minPrice, setMinPrice] = useState<number | null>(null);
+    const [maxPrice, setMaxPrice] = useState<number | null>(null);
+
     useEffect(() => {
         const fetchData = async() => {
             setLoading(true);
@@ -40,6 +45,23 @@ function MedicineFetch() {
         }
         fetchData();
     }, [search])
+
+    let displayData = medicineData?.data ? [...medicineData.data] : [];
+
+    // Apply Price Range Filter
+    if (minPrice !== null) {
+        displayData = displayData.filter(m => m.price >= minPrice);
+    }
+    if (maxPrice !== null) {
+        displayData = displayData.filter(m => m.price <= maxPrice);
+    }
+
+    // Apply Sort
+    if (sortBy === "low-to-high") {
+        displayData.sort((a, b) => a.price - b.price);
+    } else if (sortBy === "high-to-low") {
+        displayData.sort((a, b) => b.price - a.price);
+    }
 
     let medicineUi = (
         <div className="min-h-[400px] flex flex-col items-center justify-center gap-4 text-center px-4">
@@ -63,9 +85,9 @@ function MedicineFetch() {
         </div>
     );
     
-    if (medicineData?.data.length !== 0) {
+    if (displayData.length !== 0) {
         medicineUi = <div className="max-w-287.5 mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {medicineData?.data?.map((med: any) => (
+            {displayData.map((med: any) => (
                 <div
                     key={med.id}
                     className="bg-white max-w-screen rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden flex flex-col"
@@ -178,6 +200,16 @@ function MedicineFetch() {
     return(
         <div>
             <MedicineInput setSearch={setSearch} placeholder="Search By Name"></MedicineInput>
+            <MiniNavbar 
+                onSort={setSortBy} 
+                onPriceRangeChange={(min, max) => {
+                    setMinPrice(min);
+                    setMaxPrice(max);
+                }} 
+                currentSort={sortBy} 
+                minPrice={minPrice} 
+                maxPrice={maxPrice} 
+            />
             {
                 loading ? <div className="min-h-[300px] flex items-center justify-center">
                             <div className="flex flex-col items-center gap-3">
